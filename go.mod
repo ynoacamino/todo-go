@@ -2,7 +2,10 @@ module github.com/ynoacamino/todo-go
 
 go 1.21.5
 
+require github.com/gofiber/contrib/jwt v1.0.8
+
 require (
+	github.com/MicahParks/keyfunc/v2 v2.1.0 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/go-playground/locales v0.14.1 // indirect

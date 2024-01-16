@@ -1,4 +1,4 @@
-package apicontroller
+package authcontroller
 
 import (
 	"os"
@@ -117,6 +117,7 @@ func LoginUser(c *fiber.Ctx) error {
 			"username":      user.Username,
 			"complete_name": user.CompleteName,
 			"user_id":       user.ID,
+			"photo":         user.Photo,
 		}
 
 		tk := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
