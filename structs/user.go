@@ -4,14 +4,23 @@ type AuthUser struct {
 	Username string `json:"username" validate:"required,max=100,min=4"`
 	Password string `json:"user_password" validate:"required,max=100,min=4"`
 }
-
 type NewUser struct {
-	AuthUser
+	Username     string `json:"username" validate:"required,max=100,min=4"`
+	Password     string `json:"user_password" validate:"required,max=100,min=4"`
 	CompleteName string `json:"complete_name" validate:"required,max=150,min=4"`
 }
 type User struct {
-	NewUser
-	ID string `json:"user_id"`
+	Username     string `json:"username" validate:"required,max=100,min=4"`
+	Password     string `json:"user_password" validate:"required,max=100,min=4"`
+	CompleteName string `json:"complete_name" validate:"required,max=150,min=4"`
+	ID           string `json:"user_id"`
+	Photo        string `json:"photo"`
+}
+type UserToken struct {
+	Username     string `json:"username" validate:"required,max=100,min=4"`
+	CompleteName string `json:"complete_name" validate:"required,max=150,min=4"`
+	ID           string `json:"user_id"`
+	Photo        string `json:"photo"`
 }
 
 func IsValidNewUser(user *NewUser) bool {
