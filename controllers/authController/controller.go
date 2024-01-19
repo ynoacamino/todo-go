@@ -1,11 +1,8 @@
 package authcontroller
 
 import (
-	"os"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/joho/godotenv"
 	conectDB "github.com/ynoacamino/todo-go/db"
 	"github.com/ynoacamino/todo-go/structs"
 	"github.com/ynoacamino/todo-go/utils"
@@ -86,7 +83,7 @@ func LoginUser(c *fiber.Ctx) error {
 
 	db := conectDB.GetDB()
 
-	rows, err := db.Query("SELECT username, user_password FROM user WHERE username = ?", authUser.Username)
+	rows, err := db.Query("SELECT username, user_password, username, photo, complete_name, user_id FROM user WHERE username = ?", authUser.Username)
 	if err != nil {
 		return err
 	}
@@ -105,7 +102,7 @@ func LoginUser(c *fiber.Ctx) error {
 
 		var user structs.User
 
-		if err = rows.Scan(&user.Username, &user.Password); err != nil {
+		if err = rows.Scan(&user.Username, &user.Password, &user.Username, &user.Photo, &user.CompleteName, &user.ID); err != nil {
 			return err
 		}
 
@@ -120,17 +117,12 @@ func LoginUser(c *fiber.Ctx) error {
 			"photo":         user.Photo,
 		}
 
-		tk := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
+		tk := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-		err := godotenv.Load()
-		if err != nil {
-			return err
-		}
-
-		tokenString, err := tk.SignedString([]byte(os.Getenv("JWT_SECRET")))
+		tokenString, err := tk.SignedString([]byte("secret"))
 
 		if err != nil {
-			return err
+			return c.SendStatus(fiber.StatusInternalServerError)
 		}
 
 		token := structs.Token{

@@ -2,44 +2,17 @@ package groups
 
 import (
 	"github.com/gofiber/fiber/v2"
-	connectDB "github.com/ynoacamino/todo-go/db"
-	"github.com/ynoacamino/todo-go/structs"
-	"github.com/ynoacamino/todo-go/utils"
+	"github.com/ynoacamino/todo-go/controllers/taskcontroller"
+	"github.com/ynoacamino/todo-go/controllers/usercontroller"
 )
 
 func TaskGroup(app *fiber.Router) {
-	(*app).Get("/", func(c *fiber.Ctx) error {
-		user := new(structs.UserToken)
+	(*app).Get("/", taskcontroller.GetTask)
+	(*app).Post("/add", taskcontroller.AddTask)
+	(*app).Post("/edit", taskcontroller.EditTask)
 
-		err := utils.ParseJson(c.Locals("userToken").(string), user)
+	(*app).Post("/delete", taskcontroller.DeleteTask)
+	(*app).Post("/state", taskcontroller.CompleteTask)
 
-		if err != nil {
-			return err
-		}
-
-		db := connectDB.GetDB()
-
-		rows, err := db.Query("SELECT task_id, task_name, task_content, task_state, task_created_date, task_user FROM task")
-
-		if err != nil {
-			return err
-		}
-		defer rows.Close()
-
-		var tasks []structs.Task
-		for rows.Next() {
-			var task structs.Task
-
-			err := rows.Scan(&task.ID, &task.Name, &task.Content, &task.State, &task.CreatedDate, &task.User)
-
-			if err != nil {
-				return err
-			}
-
-			tasks = append(tasks, task)
-
-		}
-
-		return c.JSON(tasks)
-	})
+	(*app).Post("/user", usercontroller.GetUser)
 }
