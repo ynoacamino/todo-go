@@ -151,6 +151,9 @@ func DeleteTask(c *fiber.Ctx) error {
 
 	task := new(structs.IDTask)
 	err = c.BodyParser(task)
+	if err != nil {
+		return err
+	}
 
 	if err = validate.Struct(task); err != nil {
 		return nil
