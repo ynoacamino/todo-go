@@ -7,6 +7,7 @@ module.exports = {
     'airbnb/hooks',
     'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:@typescript-eslint/stylistic-type-checked',
+    "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -20,7 +21,10 @@ module.exports = {
     'react/function-component-definition':0,
     'linebreak-style': 0,
     'no-console': 0,
-    'jsx-a11y/label-has-associated-control': 0
+    'jsx-a11y/label-has-associated-control': 0,
+    "react/jsx-no-constructed-context-values": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "react/jsx-props-no-spreading": 0
   },
   parserOptions: {
     project: './tsconfig.json'

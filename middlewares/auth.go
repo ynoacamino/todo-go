@@ -14,10 +14,11 @@ func AuthMiddleware(c *fiber.Ctx) error {
 
 	username := claims["username"].(string)
 	complete_name := claims["complete_name"].(string)
-	user_id := claims["user_id"].(string)
+	user_id := int(claims["user_id"].(float64))
+
 	photo := claims["photo"].(string)
 
-	if username == "" || complete_name == "" || user_id == "" || photo == "" {
+	if username == "" || complete_name == "" || photo == "" {
 		return fiber.NewError(401, "Wrong credentials")
 	}
 

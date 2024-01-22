@@ -13,13 +13,13 @@ type User struct {
 	Username     string `json:"username" validate:"required,max=100,min=4"`
 	Password     string `json:"user_password" validate:"required,max=100,min=4"`
 	CompleteName string `json:"complete_name" validate:"required,max=150,min=4"`
-	ID           string `json:"user_id"`
+	ID           int    `json:"user_id"`
 	Photo        string `json:"photo"`
 }
 type UserToken struct {
 	Username     string `json:"username" validate:"required,max=100,min=4"`
 	CompleteName string `json:"complete_name" validate:"required,max=150,min=4"`
-	ID           string `json:"user_id"`
+	ID           int    `json:"user_id"`
 	Photo        string `json:"photo"`
 }
 

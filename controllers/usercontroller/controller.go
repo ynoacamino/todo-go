@@ -15,5 +15,7 @@ func GetUser(c *fiber.Ctx) error {
 		return err
 	}
 
-	return c.JSON(user)
+	c.Set("Content-Type", "application/json")
+
+	return c.Send([]byte(c.Locals("userToken").(string)))
 }

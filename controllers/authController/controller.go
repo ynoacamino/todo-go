@@ -125,11 +125,9 @@ func LoginUser(c *fiber.Ctx) error {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}
 
-		token := structs.Token{
-			Value: tokenString,
-		}
-
-		return c.JSON(token)
+		return c.JSON(fiber.Map{
+			"value": tokenString,
+		})
 
 	} else {
 		message := structs.MessageJson{

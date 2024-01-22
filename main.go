@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
@@ -21,6 +22,8 @@ func main() {
 
 	app.Use(cors.New())
 
+	app.Static("/", "./client/dist")
+
 	api := app.Group("/api")
 
 	auth := api.Group("/auth")
@@ -33,7 +36,7 @@ func main() {
 	task := api.Group("/task", middlewares.AuthMiddleware)
 	groups.TaskGroup(&task)
 
-	listenError := app.Listen(":3000")
+	listenError := app.Listen(":" + os.Getenv("PORT"))
 	if listenError != nil {
 		log.Fatal("Connect error")
 	}

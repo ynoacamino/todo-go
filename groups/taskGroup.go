@@ -8,11 +8,12 @@ import (
 
 func TaskGroup(app *fiber.Router) {
 	(*app).Get("/", taskcontroller.GetTask)
+	(*app).Get("/id", taskcontroller.GetTaskById)
 	(*app).Post("/add", taskcontroller.AddTask)
 	(*app).Post("/edit", taskcontroller.EditTask)
 
 	(*app).Post("/delete", taskcontroller.DeleteTask)
-	(*app).Post("/state", taskcontroller.CompleteTask)
+	(*app).Post("/complete", taskcontroller.CompleteTask)
 
 	(*app).Post("/user", usercontroller.GetUser)
 }
