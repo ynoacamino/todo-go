@@ -3,24 +3,17 @@ package db
 import (
 	"database/sql"
 	"log"
-	"os"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/joho/godotenv"
 )
 
 var db *sql.DB
 
 func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("failed to load env", err)
-	}
-
 	var dbError error
-	db, dbError = sql.Open("mysql", os.Getenv("DSN"))
+	db, dbError = sql.Open("mysql", "ykn2s0s3ug9frykuz3b9:pscale_pw_RZ98Do27IXnkKDbFjNHWToJAunxneYGkhDmoj4FG4x5@tcp(aws.connect.psdb.cloud)/todo-go?tls=true&interpolateParams=true")
 	if dbError != nil {
-		log.Fatalf("failed to connect: %v", err)
+		log.Fatalf("failed to connect: %v", dbError)
 	}
 }
 
